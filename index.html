@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeLink - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="login-page">
+
+<main class="login-container">
+
+    <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span>+</span></div>
+        <p class="eyebrow">Personal care, connected</p>
+        <h1>Life<span>Link</span></h1>
+        <p class="brand-copy">A calmer way to stay close to your everyday health.</p>
+        <div class="brand-note"><span class="status-dot"></span> Your wellbeing is always in focus</div>
+    </div>
+
+    <div class="login-card">
+
+        <div class="card-heading">
+            <div>
+                <p class="section-label">Member access</p>
+                <h2>Welcome back</h2>
+            </div>
+            <span class="lock-icon" aria-hidden="true">✦</span>
+        </div>
+        <p class="subtitle">Sign in to continue your health journey.</p>
+
+        <form id="loginForm">
+
+            <label for="email">Email address</label>
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+            >
+
+            <div class="password-label-row">
+                <label for="password">Password</label>
+                <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+            <div class="password-field">
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+                <button type="button" class="toggle-password" aria-label="Show password" aria-pressed="false">Show</button>
+            </div>
+
+            <button type="submit" class="primary-btn">
+                <span>Sign in</span> 
+                <span aria-hidden="true">&#8594;</span>
+            </button>
+
+        </form>
+
+        <p class="demo-text"><span>Demo access</span> Enter any email and password</p>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+
+    </div>
+
+</main>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
