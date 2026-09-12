@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeLink Blood Bank</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-page blood-bank-page">
+<div class="app">
+    <aside class="sidebar">
+        <div class="sidebar-logo"><span aria-hidden="true">♥</span> LifeLink</div>
+        <nav aria-label="Main navigation">
+            <a href="dashboard.html">🏠 Dashboard</a>
+            <a href="profile.html">👤 My Profile</a>
+            <a href="medicine-store.html">💊 Medicine Store</a>
+            <a href="blood-bank.html" class="active" aria-current="page">🩸 Blood Bank</a>
+            <a href="care-finder.html">❤️ Find Care</a>
+        </nav>
+        <button class="logout-btn" type="button" onclick="logout()">Logout</button>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div><h2>Blood Bank & Donor Connect</h2><p>Find opted-in community donors for a verified local need.</p></div>
+            <div class="topbar-actions"><a class="forgot-link" href="#myRequests">My requests</a><span class="assistant-badge" id="requestCount">0 requests</span></div>
+        </header>
+
+        <section class="blood-hero" aria-labelledby="bloodTitle">
+            <div><p class="eyebrow">Community care, connected</p><h1 id="bloodTitle">A little help can mean everything.</h1><p>Register as a donor or create a blood request. Only donors who consent and are currently available appear in search results.</p><a class="primary-btn blood-hero-button" href="#emergencyRequest">Create blood request <span aria-hidden="true">→</span></a></div>
+            <div class="blood-hero-mark" aria-hidden="true">🩸</div>
+        </section>
+
+        <div class="blood-safety-note" role="note"><strong>Safety first:</strong> LifeLink Blood Bank is a student MVP/demo. In a medical emergency, immediately contact a licensed hospital, blood bank, or local emergency service. Donor information must be verified before any donation.</div>
+
+        <section class="blood-overview panel" aria-labelledby="availabilityTitle">
+            <div class="panel-header"><div><p class="assistant-kicker">Prototype overview</p><h2 id="availabilityTitle">Community availability</h2></div><span class="assistant-badge">Opted-in donors only</span></div>
+            <div class="blood-count-grid" id="bloodCounts"></div>
+        </section>
+
+        <div class="blood-layout">
+            <section class="panel donor-search-panel" aria-labelledby="donorSearchTitle">
+                <div class="panel-header"><div><p class="assistant-kicker">Privacy-safe search</p><h2 id="donorSearchTitle">Find a donor</h2></div><span class="assistant-badge" id="donorResultCount">0 matches</span></div>
+                <div class="blood-filter-grid">
+                    <div><label for="searchBloodGroup">Blood group</label><select id="searchBloodGroup"><option value="all">All groups</option></select></div>
+                    <div><label for="searchCity">City</label><input id="searchCity" type="search" placeholder="e.g. Hyderabad"></div>
+                    <div><label for="searchArea">Area</label><input id="searchArea" type="search" placeholder="e.g. Banjara Hills"></div>
+                    <label class="availability-filter"><input id="availableOnly" type="checkbox" checked> Available now</label>
+                </div>
+                <div class="donor-results" id="donorResults"></div>
+            </section>
+
+            <section class="panel donor-profile-panel" id="myDonorProfile" aria-labelledby="donorProfileTitle">
+                <div class="panel-header"><div><p class="assistant-kicker">Your contribution</p><h2 id="donorProfileTitle">My Donor Profile</h2></div><span class="assistant-badge" id="donorProfileStatus">Not registered</span></div>
+                <form id="donorForm" class="blood-form" novalidate>
+                    <div class="blood-form-grid">
+                        <div><label for="donorName">Full name</label><input id="donorName" required autocomplete="name"></div>
+                        <div><label for="donorBloodGroup">Blood group</label><select id="donorBloodGroup" required><option value="">Select group</option></select></div>
+                        <div><label for="donorCity">City</label><input id="donorCity" required autocomplete="address-level2"></div>
+                        <div><label for="donorArea">Area</label><input id="donorArea" required></div>
+                        <div><label for="donorPhone">Phone number</label><input id="donorPhone" type="tel" pattern="[0-9+() -]{7,}" required autocomplete="tel"></div>
+                        <div><label for="donorEmail">Email</label><input id="donorEmail" type="email" required autocomplete="email"></div>
+                        <div><label for="lastDonation">Last donation date</label><input id="lastDonation" type="date"></div>
+                        <div><label for="contactPreference">Contact preference</label><select id="contactPreference" required><option value="In-app message">In-app message</option><option value="Phone after approval">Phone after approval</option><option value="Email after approval">Email after approval</option></select></div>
+                    </div>
+                    <label class="toggle-row"><input id="donorAvailable" type="checkbox"><span><strong>Available now</strong><small>Toggle off when you cannot respond to a request.</small></span></label>
+                    <label class="consent-row"><input id="donorConsent" type="checkbox" required><span>I consent to my first name or anonymous name, blood group, city, area, availability, and last-updated time appearing in donor searches. My phone, email, and exact address stay private.</span></label>
+                    <p class="form-status" id="donorStatus" role="status" aria-live="polite"></p>
+                    <button class="primary-btn" type="submit">Save donor profile <span aria-hidden="true">→</span></button>
+                </form>
+            </section>
+        </div>
+
+        <section class="panel blood-request-panel" id="emergencyRequest" aria-labelledby="requestTitle">
+            <div class="panel-header"><div><p class="assistant-kicker">Emergency help</p><h2 id="requestTitle">Create a blood request</h2></div><span class="assistant-badge">Mock request only</span></div>
+            <form id="bloodRequestForm" class="blood-form" novalidate>
+                <div class="blood-form-grid">
+                    <div><label for="requestBloodGroup">Required blood group</label><select id="requestBloodGroup" required><option value="">Select group</option></select></div>
+                    <div><label for="hospitalName">Hospital / clinic</label><input id="hospitalName" required></div>
+                    <div><label for="requestCity">City</label><input id="requestCity" required></div>
+                    <div><label for="requestArea">Area</label><input id="requestArea" required></div>
+                    <div><label for="urgency">Urgency</label><select id="urgency" required><option value="Within 24 hours">Within 24 hours</option><option value="Today">Today</option><option value="Immediate emergency">Immediate emergency</option></select></div>
+                    <div><label for="unitsRequired">Units required</label><input id="unitsRequired" type="number" min="1" max="20" required></div>
+                    <div><label for="requesterName">Requester name</label><input id="requesterName" required></div>
+                    <div><label for="requesterPhone">Requester phone</label><input id="requesterPhone" type="tel" pattern="[0-9+() -]{7,}" required></div>
+                    <div><label for="requesterEmail">Requester email</label><input id="requesterEmail" type="email" required></div>
+                </div>
+                <div><label for="requestMessage">Short message</label><textarea id="requestMessage" maxlength="300" placeholder="Share only details needed to coordinate safely." required></textarea></div>
+                <p class="form-status" id="requestStatus" role="status" aria-live="polite"></p>
+                <button class="primary-btn" type="submit">Submit blood request <span aria-hidden="true">→</span></button>
+            </form>
+        </section>
+
+        <div class="blood-views">
+            <section class="panel" id="myRequests" aria-labelledby="myRequestsTitle"><div class="panel-header"><div><p class="assistant-kicker">Requester view</p><h2 id="myRequestsTitle">My Blood Requests</h2></div></div><div class="request-list" id="myRequestList"></div></section>
+            <section class="panel" id="incomingRequests" aria-labelledby="incomingTitle"><div class="panel-header"><div><p class="assistant-kicker">Donor view</p><h2 id="incomingTitle">Incoming Donor Requests</h2></div></div><div class="request-list" id="incomingRequestList"></div></section>
+        </div>
+
+        <div class="medical-note"><strong>Prototype boundaries:</strong> This page does not verify hospitals, donor eligibility, blood safety, real-time inventory, medical suitability, blood collection, or blood delivery. Never rely on this demo during an emergency.</div>
+    </main>
+</div>
+<script src="js/auth.js"></script>
+<script src="js/blood-bank.js"></script>
+</body>
+</html>

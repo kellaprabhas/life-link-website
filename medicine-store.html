@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeLink Medicine Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body class="dashboard-page store-page">
+<div class="app">
+    <aside class="sidebar">
+        <div class="sidebar-logo"><span aria-hidden="true">♥</span> LifeLink</div>
+        <nav aria-label="Main navigation">
+            <a href="dashboard.html">🏠 Dashboard</a>
+            <a href="profile.html">👤 My Profile</a>
+            <a href="medicine-store.html" class="active" aria-current="page">💊 Medicine Store</a>
+            <a href="medicine-reminders.html">⏰ Medicine Reminders</a>
+            <a href="blood-bank.html">🩸 Blood Bank</a>
+            <a href="#">💧 Hydration</a>
+            <a href="#">🏃 Exercise</a>
+            <a href="#">😴 Sleep</a>
+            <a href="#">😊 Mood</a>
+            <a href="#">📅 Appointments</a>
+            <a href="care-finder.html">❤️ Find Care</a>
+        </nav>
+        <button class="logout-btn" type="button" onclick="logout()">Logout</button>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <h2>Medicine Store</h2>
+                <p>Browse a small, mock catalog for this LifeLink demo.</p>
+            </div>
+            <div class="topbar-actions">
+                <a class="forgot-link" href="#orders">Order history</a>
+                <span class="assistant-badge" id="cartCount">0 items</span>
+            </div>
+        </header>
+
+        <section class="store-intro" aria-labelledby="storeTitle">
+            <div>
+                <p class="eyebrow">LifeLink care essentials</p>
+                <h1 id="storeTitle">A calmer way to manage your medicine list.</h1>
+                <p>Explore mock products, add them to your cart, and walk through a prototype checkout. This page does not dispense medicines or process real payments.</p>
+            </div>
+            <div class="store-note"><strong>Demo notice</strong><br>Prescription uploads are for prototype review only. Orders are not fulfilled in this student MVP.</div>
+        </section>
+
+        <div class="store-layout">
+            <section class="panel store-catalog" aria-labelledby="catalogTitle">
+                <div class="panel-header">
+                    <div>
+                        <p class="assistant-kicker">Mock catalog</p>
+                        <h2 id="catalogTitle">Find your essentials</h2>
+                    </div>
+                    <span class="assistant-badge" id="resultCount">0 products</span>
+                </div>
+                <div class="store-toolbar">
+                    <label class="sr-only" for="medicineSearch">Search medicines</label>
+                    <input id="medicineSearch" type="search" placeholder="Search by medicine or category" autocomplete="off">
+                    <label class="sr-only" for="categoryFilter">Filter by category</label>
+                    <select id="categoryFilter">
+                        <option value="all">All categories</option>
+                    </select>
+                </div>
+                <div class="medicine-grid" id="medicineGrid"></div>
+            </section>
+
+            <aside class="panel store-side-panel" aria-labelledby="cartTitle">
+                <div class="panel-header">
+                    <h2 id="cartTitle">Your cart</h2>
+                    <span class="assistant-badge" id="cartBadge">Empty</span>
+                </div>
+                <div class="cart-list" id="cartList"></div>
+                <div class="cart-summary" id="cartSummary" hidden>
+                    <div class="summary-row"><span>Subtotal</span><strong id="subtotal">₹0</strong></div>
+                    <div class="summary-row"><span>Delivery</span><strong id="deliveryCharge">₹0</strong></div>
+                    <div class="summary-row total"><span>Grand total</span><strong id="grandTotal">₹0</strong></div>
+                </div>
+                <div class="prescription-upload" id="prescriptionPanel" hidden>
+                    <label for="prescriptionFile">Prescription required for this cart</label>
+                    <input id="prescriptionFile" type="file" accept="image/*,application/pdf">
+                    <p id="prescriptionStatus">Upload an image or PDF before checkout. A pharmacist would review it before fulfillment.</p>
+                </div>
+                <button class="primary-btn" id="checkoutButton" type="button" disabled>Continue to checkout <span aria-hidden="true">→</span></button>
+            </aside>
+        </div>
+
+        <section class="panel checkout-section" id="checkoutSection" aria-labelledby="checkoutTitle" hidden>
+            <div class="panel-header">
+                <div>
+                    <p class="assistant-kicker">Prototype checkout</p>
+                    <h2 id="checkoutTitle">Delivery details</h2>
+                </div>
+                <button class="forgot-link" id="backToCart" type="button">Back to cart</button>
+            </div>
+            <p class="checkout-note">Cash on Delivery is the default mock payment. The online option is demo only and does not charge money.</p>
+            <form class="checkout-form" id="checkoutForm" novalidate>
+                <div class="form-grid">
+                    <div><label for="customerName">Customer name</label><input id="customerName" name="customerName" autocomplete="name" required></div>
+                    <div><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" inputmode="tel" pattern="[0-9+() -]{7,}" autocomplete="tel" required></div>
+                    <div><label for="city">City</label><input id="city" name="city" autocomplete="address-level2" required></div>
+                    <div><label for="pincode">Pincode</label><input id="pincode" name="pincode" inputmode="numeric" pattern="[0-9]{4,10}" autocomplete="postal-code" required></div>
+                </div>
+                <div><label for="address">Delivery address</label><textarea id="address" name="address" autocomplete="street-address" required></textarea></div>
+                <div>
+                    <label>Delivery preference</label>
+                    <div class="option-row"><label><input type="radio" name="delivery" value="Standard delivery" checked> Standard delivery (2-4 days)</label><label><input type="radio" name="delivery" value="Priority delivery"> Priority delivery (1-2 days)</label></div>
+                </div>
+                <div>
+                    <label>Mock payment</label>
+                    <div class="option-row"><label><input type="radio" name="payment" value="Cash on Delivery" checked> Cash on Delivery</label><label><input type="radio" name="payment" value="Online payment (Demo only)"> Online payment <span class="assistant-badge">Demo only</span></label></div>
+                </div>
+                <p class="form-status" id="checkoutStatus" role="alert" aria-live="polite"></p>
+                <button class="primary-btn" type="submit">Place mock order <span aria-hidden="true">→</span></button>
+            </form>
+        </section>
+
+        <section class="confirmation" id="confirmationSection" hidden aria-live="polite"></section>
+
+        <section class="panel orders-section" id="orders" aria-labelledby="ordersTitle">
+            <div class="panel-header"><div><p class="assistant-kicker">Saved locally</p><h2 id="ordersTitle">Order history & tracking</h2></div></div>
+            <div class="orders-list" id="ordersList"></div>
+        </section>
+
+        <div class="medical-note"><strong>LifeLink Medicine Store is a student MVP/demo.</strong> Orders are not fulfilled unless connected to a licensed pharmacy and delivery partner. This catalog does not provide medical advice, prescription approval, licensed pharmacy services, real payments, or real delivery fulfillment.</div>
+    </main>
+</div>
+<script src="js/auth.js"></script>
+<script src="js/medicine-store.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>LifeLink Care Finder</title>
+
+<link rel="stylesheet"
+      href="css/style.css">
+
+</head>
+
+<body class="dashboard-page care-page">
+
+<div class="app">
+
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+        <span aria-hidden="true">♥</span>
+        LifeLink
+    </div>
+
+    <nav>
+
+        <a href="dashboard.html">
+            🏠 Dashboard
+        </a>
+
+        <a href="profile.html">
+            👤 My Profile
+        </a>
+
+        <a href="care-finder.html"
+           class="active">
+            ❤️ Find Care
+        </a>
+
+        <a href="blood-bank.html">
+            🩸 Blood Bank
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<main class="main">
+
+<header class="topbar">
+
+<div>
+
+<h2>Find Healthcare ❤️</h2>
+
+<p>
+Find healthcare providers based on
+your selected specialty and location.
+</p>
+
+</div>
+
+</header>
+
+
+<section class="care-search panel">
+
+<h2>What type of care do you need?</h2>
+
+<div class="specialty-grid">
+
+<button onclick="findDoctors('Cardiology')">
+❤️ Cardiology
+</button>
+
+<button onclick="findDoctors('General Medicine')">
+🩺 General Medicine
+</button>
+
+<button onclick="findDoctors('Orthopedics')">
+🦴 Orthopedics
+</button>
+
+<button onclick="findDoctors('Ophthalmology')">
+👁️ Eye Care
+</button>
+
+<button onclick="findDoctors('Neurology')">
+🧠 Neurology
+</button>
+
+<button onclick="findDoctors('Pediatrics')">
+👶 Pediatrics
+</button>
+
+</div>
+
+</section>
+
+
+<section class="provider-section">
+
+<div class="panel-header">
+
+<h2 id="resultTitle">
+Nearby Healthcare Providers
+</h2>
+
+</div>
+
+
+<div id="doctorList">
+
+<!-- Doctors will appear here -->
+
+</div>
+
+</section>
+
+
+<div class="medical-note">
+
+⚠️ <strong>Important:</strong>
+
+LifeLink does not diagnose medical conditions
+or determine which doctor is medically best
+for you. Results are shown based on
+specialty, location and available provider
+information.
+
+</div>
+
+</main>
+
+</div>
+
+
+<script src="js/auth.js"></script>
+<script src="js/care-finder.js"></script>
+
+</body>
+</html>

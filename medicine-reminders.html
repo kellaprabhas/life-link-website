@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#115a54">
+    <link rel="manifest" href="manifest.webmanifest">
+    <title>LifeLink Medicine Reminders</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-page reminders-page">
+<div class="app">
+    <aside class="sidebar">
+        <div class="sidebar-logo"><span aria-hidden="true">♥</span> LifeLink</div>
+        <nav aria-label="Main navigation">
+            <a href="dashboard.html">🏠 Dashboard</a>
+            <a href="profile.html">👤 My Profile</a>
+            <a href="medicine-reminders.html" class="active" aria-current="page">⏰ Medicine Reminders</a>
+            <a href="medicine-store.html">💊 Medicine Store</a>
+            <a href="blood-bank.html">🩸 Blood Bank</a>
+            <a href="care-finder.html">❤️ Find Care</a>
+        </nav>
+        <button class="logout-btn" type="button" onclick="logout()">Logout</button>
+    </aside>
+    <main class="main">
+        <header class="topbar">
+            <div><h2>Medicine Reminders</h2><p>Keep your routine visible while LifeLink is open.</p></div>
+            <div class="topbar-actions"><button class="notification-button" id="enableNotifications" type="button">Enable notifications</button><span class="assistant-badge" id="notificationStatus">Not enabled</span></div>
+        </header>
+
+        <section class="reminder-hero">
+            <div><p class="eyebrow">A gentler routine</p><h1>Never lose track of the next dose.</h1><p>LifeLink can show an in-app alert, browser notification, and local alarm while this website is open.</p></div>
+            <div class="next-reminder-hero" id="nextReminderHero"><span>Next reminder</span><strong id="nextReminderHeroText">No reminders yet</strong></div>
+        </section>
+        <div class="medicine-safety-note"><strong>Safety:</strong> LifeLink medicine reminders are a supportive tool only. Do not rely on this service for emergency or critical medication timing. Follow your doctor's instructions and seek urgent care when necessary.</div>
+
+        <div class="reminder-layout">
+            <section class="panel reminder-form-panel" aria-labelledby="reminderFormTitle">
+                <div class="panel-header"><div><p class="assistant-kicker">Plan a dose</p><h2 id="reminderFormTitle">Add medicine reminder</h2></div><span class="assistant-badge" id="formMode">New reminder</span></div>
+                <form id="reminderForm" class="reminder-form" novalidate>
+                    <input id="reminderId" type="hidden">
+                    <div class="reminder-form-grid">
+                        <div><label for="medicineName">Medicine name</label><input id="medicineName" required placeholder="e.g. Vitamin tablet"></div>
+                        <div><label for="dosage">Dosage</label><input id="dosage" required placeholder="e.g. 1 tablet"></div>
+                        <div><label for="reminderTime">Reminder time</label><input id="reminderTime" type="time" required></div>
+                        <div><label for="startDate">Start date</label><input id="startDate" type="date" required></div>
+                        <div><label for="endDate">End date <span class="optional-label">optional</span></label><input id="endDate" type="date"></div>
+                        <div><label for="repeatType">Repeat</label><select id="repeatType"><option value="Once">Once</option><option value="Daily">Daily</option><option value="Selected Days">Selected days</option><option value="Custom interval">Custom interval</option></select></div>
+                        <div class="custom-interval-field" id="customIntervalField" hidden><label for="customInterval">Every how many days?</label><input id="customInterval" type="number" min="1" max="365" value="2"></div>
+                        <div><label for="mealInstruction">Meal instruction</label><select id="mealInstruction"><option>Any time</option><option>Before food</option><option>After food</option><option>With food</option></select></div>
+                    </div>
+                    <fieldset class="selected-days-field" id="selectedDaysField" hidden><legend>Choose days</legend><div class="day-picker">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map((day, index) => `<label><input type="checkbox" value="${index}"><span>${day}</span></label>`).join('')}</div></fieldset>
+                    <div><label for="reminderNotes">Notes <span class="optional-label">optional</span></label><textarea id="reminderNotes" maxlength="240" placeholder="Add a short note for this dose"></textarea></div>
+                    <label class="reminder-toggle"><input id="isEnabled" type="checkbox" checked><span><strong>Reminder enabled</strong><small>Pause it later without deleting the schedule.</small></span></label>
+                    <p class="form-status" id="reminderFormStatus" role="status" aria-live="polite"></p>
+                    <div class="form-actions"><button class="primary-btn" type="submit">Save reminder <span aria-hidden="true">→</span></button><button class="secondary-btn" id="cancelEdit" type="button" hidden>Cancel edit</button></div>
+                </form>
+            </section>
+
+            <section class="panel upcoming-panel" aria-labelledby="upcomingTitle">
+                <div class="panel-header"><div><p class="assistant-kicker">Today</p><h2 id="upcomingTitle">Upcoming medicines</h2></div><button class="sound-control" id="muteAlarm" type="button" aria-pressed="false">🔊 Sound on</button></div>
+                <div id="upcomingList" class="reminder-list"></div>
+            </section>
+        </div>
+
+        <section class="panel all-reminders-panel" aria-labelledby="allRemindersTitle">
+            <div class="panel-header"><div><p class="assistant-kicker">Your schedule</p><h2 id="allRemindersTitle">All reminders</h2></div><span class="assistant-badge" id="activeReminderCount">0 active</span></div>
+            <div class="reminder-tabs" role="tablist" aria-label="Reminder filters">${['Today','Upcoming','Completed','Missed','Disabled'].map((tab, index) => `<button type="button" role="tab" aria-selected="${index === 0}" data-reminder-filter="${tab}">${tab}</button>`).join('')}</div>
+            <div id="allRemindersList" class="reminder-list"></div>
+        </section>
+
+        <section class="panel history-panel" id="medicationHistory" aria-labelledby="historyTitle">
+            <div class="panel-header"><div><p class="assistant-kicker">Dose record</p><h2 id="historyTitle">Medication history</h2></div><div class="adherence-summary" id="adherenceSummary">0 of 0 completed today</div></div>
+            <div class="history-filters"><label for="historyMedicine">Medicine</label><select id="historyMedicine"><option value="all">All medicines</option></select><label for="historyStatus">Status</label><select id="historyStatus"><option value="all">All statuses</option><option>Taken</option><option>Snoozed</option><option>Skipped</option><option>Missed</option></select></div>
+            <div id="historyList" class="history-list"></div>
+        </section>
+
+        <div class="medical-note"><strong>Browser limitation:</strong> Notifications and the alarm work while this page is open and permission is granted. A PWA does not guarantee exact alarms when the browser or app is closed, especially on iOS. Production reliability needs Firebase Cloud Messaging or a native mobile app.</div>
+    </main>
+</div>
+
+<div class="alarm-modal" id="alarmModal" hidden role="dialog" aria-modal="true" aria-labelledby="alarmTitle">
+    <div class="alarm-dialog"><div class="alarm-pulse" aria-hidden="true">⏰</div><p class="assistant-kicker">Medicine reminder</p><h2 id="alarmTitle">Time for your medicine</h2><p id="alarmDetails"></p><p id="alarmInstruction" class="alarm-instruction"></p><div class="alarm-actions"><button class="primary-btn" id="markTaken" type="button">Mark as Taken</button><button class="secondary-btn" id="snoozeReminder" type="button">Snooze for 10 Minutes</button><button class="secondary-btn" id="skipReminder" type="button">Skip</button></div></div>
+</div>
+<script src="js/auth.js"></script>
+<script src="js/medicine-reminders.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

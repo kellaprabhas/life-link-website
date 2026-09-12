@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeLink Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body class="dashboard-page profile-page">
+<div class="app">
+    <aside class="sidebar">
+        <div class="sidebar-logo"><span aria-hidden="true">♥</span> LifeLink</div>
+        <nav aria-label="Main navigation">
+            <a href="dashboard.html">🏠 Dashboard</a>
+            <a href="profile.html" class="active" aria-current="page">👤 My Profile</a>
+            <a href="care-finder.html">❤️ Find Care</a>
+            <a href="blood-bank.html">🩸 Blood Bank</a>
+            <a href="medicine-store.html">💊 Medicine Store</a>
+            <a href="medicine-reminders.html">⏰ Medicine Reminders</a>
+        </nav>
+    </aside>
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <h2>My Health Profile 👤</h2>
+                <p>Manage your personal health information</p>
+            </div>
+        </header>
+        <section class="profile-card">
+            <div class="profile-avatar">👤</div>
+            <h2 id="profileName">User</h2>
+            <p class="profile-role">Personal Health Profile</p>
+        </section>
+        <section class="panel profile-panel">
+            <h2>Basic Information</h2>
+            <div class="form-grid">
+                <div><label for="name">Full Name</label><input type="text" id="name" placeholder="Your name"></div>
+                <div><label for="age">Age</label><input type="number" id="age" min="1" max="120" placeholder="Age"></div>
+                <div>
+                    <label for="bloodGroup">Blood Group</label>
+                    <select id="bloodGroup" aria-label="Blood group">
+                        <option value="">Select blood group</option>
+                        <option value="A+">A+</option><option value="A-">A-</option>
+                        <option value="B+">B+</option><option value="B-">B-</option>
+                        <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                        <option value="O+">O+</option><option value="O-">O-</option>
+                        <option value="Unknown">Prefer not to say</option>
+                    </select>
+                </div>
+                <div><label for="height">Height</label><input type="text" id="height" placeholder="e.g. 170 cm"></div>
+                <div><label for="weight">Weight</label><input type="text" id="weight" placeholder="e.g. 65 kg"></div>
+                <div><label for="waterGoal">Daily Water Goal</label><input type="number" id="waterGoal" placeholder="8 glasses"></div>
+                <div><label for="exerciseGoal">Exercise Goal</label><input type="text" id="exerciseGoal" placeholder="30 minutes"></div>
+            </div>
+            <button class="primary-btn" type="button" onclick="saveProfile()">Save Profile</button>
+            <p class="form-status" id="profileStatus" role="status" aria-live="polite"></p>
+        </section>
+        <section class="panel profile-panel emergency-panel">
+            <h2>Emergency Contact</h2>
+            <div class="form-grid">
+                <div><label for="contactName">Contact Name</label><input type="text" id="contactName" placeholder="Family member"></div>
+                <div><label for="phoneNumber">Phone Number</label><input type="tel" id="phoneNumber" pattern="[0-9+() -]{7,}" placeholder="Phone number"></div>
+            </div>
+        </section>
+    </main>
+</div>
+<script src="js/auth.js"></script>
+<script src="js/profile.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

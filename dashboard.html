@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>LifeLink Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.webmanifest">
+
+</head>
+
+<body class="dashboard-page">
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <span>♥</span>
+            LifeLink
+        </div>
+
+        <nav aria-label="Main navigation">
+
+            <a href="dashboard.html" class="active">
+                🏠 Dashboard
+            </a>
+
+            <a href="profile.html">
+                👤 My Profile
+            </a>
+
+            <a href="medicine-store.html">
+                💊 Medicines
+            </a>
+
+            <a href="medicine-reminders.html">
+                ⏰ Medicine Reminders
+            </a>
+
+            <a href="blood-bank.html">
+                🩸 Blood Bank
+            </a>
+
+            <a href="#">
+                💧 Hydration
+            </a>
+
+            <a href="#">
+                🏃 Exercise
+            </a>
+
+            <a href="#">
+                😴 Sleep
+            </a>
+
+            <a href="#">
+                😊 Mood
+            </a>
+
+            <a href="#">
+                📅 Appointments
+            </a>
+
+            <a href="care-finder.html">
+                ❤️ Find Care
+            </a>
+
+        </nav>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <h2 id="dashboardGreeting">Good Morning, User 👋</h2>
+                <p>Let's take care of your health today.</p>
+            </div>
+
+            <div class="topbar-actions">
+                <label class="language-picker" for="languageSelect">
+                    <span aria-hidden="true">文</span>
+                    <select id="languageSelect" aria-label="Choose language">
+                        <option value="English">English</option>
+                        <option value="Hindi">हिन्दी</option>
+                        <option value="Telugu">తెలుగు</option>
+                        <option value="Tamil">தமிழ்</option>
+                        <option value="Kannada">ಕನ್ನಡ</option>
+                        <option value="Malayalam">മലയാളം</option>
+                        <option value="Bengali">বাংলা</option>
+                        <option value="Marathi">मराठी</option>
+                        <option value="Gujarati">ગુજરાતી</option>
+                        <option value="Punjabi">ਪੰਜਾਬੀ</option>
+                        <option value="Urdu">اردو</option>
+                        <option value="Arabic">العربية</option>
+                        <option value="Chinese">中文</option>
+                        <option value="French">Français</option>
+                        <option value="German">Deutsch</option>
+                        <option value="Spanish">Español</option>
+                        <option value="Portuguese">Português</option>
+                        <option value="Japanese">日本語</option>
+                        <option value="Korean">한국어</option>
+                        <option value="Other">Other languages</option>
+                    </select>
+                </label>
+                <button class="notification" id="notificationButton" type="button" aria-label="View notifications">
+                    🔔
+                    <span class="notification-dot" aria-hidden="true"></span>
+                </button>
+            </div>
+
+        </header>
+
+
+        <!-- HEALTH SCORE -->
+
+        <section class="health-score">
+
+            <div>
+
+                <p>Today's Health Score</p>
+
+                <h1 id="healthScore">
+                    82%
+                </h1>
+
+                <span>
+                    Keep going! You're doing great.
+                </span>
+
+            </div>
+
+            <div class="score-circle">
+                82
+            </div>
+
+        </section>
+
+
+        <!-- STAT CARDS -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon medicine">
+                    💊
+                </div>
+
+                <div>
+
+                    <h3>Medicine</h3>
+
+                    <p>
+                        <span id="medicineDone">4</span>
+                        / 5 completed
+                    </p>
+
+                    <div class="progress">
+                        <div
+                            class="progress-bar"
+                            style="width:80%">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon water">
+                    💧
+                </div>
+
+                <div>
+
+                    <h3>Hydration</h3>
+
+                    <p>
+                        <span id="waterCount">6</span>
+                        / 8 glasses
+                    </p>
+
+                    <div class="progress">
+                        <div
+                            class="progress-bar"
+                            style="width:75%">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon exercise">
+                    🏃
+                </div>
+
+                <div>
+
+                    <h3>Exercise</h3>
+
+                    <p>
+                        25 / 30 minutes
+                    </p>
+
+                    <div class="progress">
+                        <div
+                            class="progress-bar"
+                            style="width:83%">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon sleep">
+                    😴
+                </div>
+
+                <div>
+
+                    <h3>Sleep</h3>
+
+                    <p>
+                        7h 20m
+                    </p>
+
+                    <div class="progress">
+                        <div
+                            class="progress-bar"
+                            style="width:90%">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="dashboard-links panel" aria-labelledby="healthConnectionsTitle">
+            <div class="panel-header">
+                <div>
+                    <p class="assistant-kicker">LifeLink connections</p>
+                    <h2 id="healthConnectionsTitle">Your health at a glance</h2>
+                </div>
+                <a class="forgot-link" href="profile.html">Update profile</a>
+            </div>
+            <div class="dashboard-links-grid">
+                <a class="dashboard-link-card" href="blood-bank.html">
+                    <span class="dashboard-link-icon">🩸</span>
+                    <span><strong id="dashboardBloodGroup">Blood group not set</strong><small id="dashboardBloodStatus">Set it in your profile</small></span>
+                </a>
+                <a class="dashboard-link-card" href="blood-bank.html#myRequests">
+                    <span class="dashboard-link-icon">🚑</span>
+                    <span><strong id="dashboardRequestStatus">No blood requests</strong><small>View request tracking</small></span>
+                </a>
+                <a class="dashboard-link-card" href="medicine-store.html#orders">
+                    <span class="dashboard-link-icon">📦</span>
+                    <span><strong id="dashboardOrderStatus">No medicine orders</strong><small>Open order history</small></span>
+                </a>
+            </div>
+        </section>
+
+
+        <!-- MEDICINE DETECTOR -->
+
+        <section class="medicine-scanner panel" aria-labelledby="medicineScannerTitle">
+
+            <div class="panel-header">
+
+                <div>
+                    <p class="assistant-kicker">Medicine safety</p>
+                    <h2 id="medicineScannerTitle">Medicine Detector</h2>
+                </div>
+
+                <span class="assistant-badge">AI Vision + OCR</span>
+
+            </div>
+
+            <p>Upload or take a clear photo of the medicine package or label.</p>
+
+            <label class="medicine-upload-button" for="medicineImage">
+                <span class="medicine-upload-icon" aria-hidden="true">✚</span>
+                <span class="medicine-upload-copy"><strong id="medicineUploadName">Choose medicine file</strong><small>JPG, PNG or camera image</small></span>
+                <span class="medicine-upload-action">Browse</span>
+            </label>
+            <input
+                type="file"
+                id="medicineImage"
+                accept="image/*"
+                capture="environment"
+            >
+
+            <div class="medicine-preview" id="medicinePreview" hidden>
+                <img id="medicinePreviewImage" alt="Selected medicine label preview">
+                <span>Preview only - your original image is not changed.</span>
+            </div>
+
+            <button type="button" class="primary-btn" id="scanMedicine">
+                Scan Again
+            </button>
+
+            <p id="scanProgress" class="form-status" role="status" aria-live="polite"></p>
+
+            <div id="medicineResult" class="medicine-result" hidden>
+                <div class="medicine-result-heading">
+                    <div>
+                        <p class="assistant-kicker">Safety review</p>
+                        <h3 id="medicineName">Medicine name</h3>
+                    </div>
+                    <span id="medicineStatus" class="medicine-status">Not checked</span>
+                </div>
+
+                <p data-medicine-field="genericName">
+                    <strong>Active ingredient:</strong>
+                    <span id="medicineGeneric">Not detected</span>
+                </p>
+
+                <p data-medicine-field="strength">
+                    <strong>Strength:</strong>
+                    <span id="medicineStrength">Not detected</span>
+                </p>
+
+                <p data-medicine-field="dosageForm">
+                    <strong>Form:</strong>
+                    <span id="medicineForm">Not detected</span>
+                </p>
+
+                <p data-medicine-field="expiryDate">
+                    <strong>Expiry:</strong>
+                    <span id="medicineExpiry">Not detected</span>
+                </p>
+
+                <p data-medicine-field="manufacturingDate">
+                    <strong>Manufactured:</strong>
+                    <span id="medicineManufacturing">Not detected</span>
+                </p>
+
+                <p data-medicine-field="batchNumber">
+                    <strong>Batch number:</strong>
+                    <span id="medicineBatch">Not detected</span>
+                </p>
+
+                <p data-medicine-field="manufacturer">
+                    <strong>Manufacturer:</strong>
+                    <span id="medicineManufacturer">Not detected</span>
+                </p>
+
+                <p>
+                    <strong>Uses and details:</strong>
+                    <span id="medicineDetails">Not available</span>
+                </p>
+
+                <p>
+                    <strong>Common warnings:</strong>
+                    <span id="medicineWarnings">Not available</span>
+                </p>
+
+                <p>
+                    <strong>Medicine identification confidence:</strong>
+                    <span id="medicineConfidence">Not available</span>
+                </p>
+
+                <p data-medicine-field="visionConfidence">
+                    <strong>Vision confidence:</strong>
+                    <span id="medicineVisionConfidence">Not available</span>
+                </p>
+
+                <p data-medicine-field="ocrConfidence">
+                    <strong>OCR confidence:</strong>
+                    <span id="medicineOcrConfidence">Not available</span>
+                </p>
+
+                <p data-medicine-field="medicineMatchConfidence">
+                    <strong>Medicine match confidence:</strong>
+                    <span id="medicineMatchConfidence">Not available</span>
+                </p>
+
+                <details id="medicineDebug" class="medicine-debug">
+                    <summary>Development diagnostics</summary>
+                    <p><strong>AI Vision result</strong></p>
+                    <pre id="medicineVisionDebug">Not available</pre>
+                    <p><strong>OCR result</strong></p>
+                    <pre id="medicineOcrDebug">Not available</pre>
+                    <p><strong>Final medicine candidate</strong></p>
+                    <pre id="medicineCandidateDebug">Not available</pre>
+                    <p><strong>Error/API status</strong></p>
+                    <pre id="medicineApiDebug">Not available</pre>
+                </details>
+
+                <p class="medicine-warning">
+                    Medicine information is provided for general guidance. Always verify the medicine, expiry date, dosage and suitability with the package label, pharmacist or doctor.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- TODAY'S ROUTINE -->
+
+        <section class="content-grid">
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>Today's Routine</h2>
+
+                    <button onclick="showAddReminder()">
+                        + Add
+                    </button>
+
+                </div>
+
+
+                <div class="routine-item">
+
+                    <div class="routine-icon">
+                        💊
+                    </div>
+
+                    <div class="routine-info">
+
+                        <h3>Vitamin Tablet</h3>
+
+                        <p>9:00 PM • After food</p>
+
+                    </div>
+
+                    <button
+                        class="done-btn"
+                        onclick="completeRoutine(this)">
+                        ✓ Done
+                    </button>
+
+                </div>
+
+
+                <div class="routine-item">
+
+                    <div class="routine-icon">
+                        💧
+                    </div>
+
+                    <div class="routine-info">
+
+                        <h3>Drink Water</h3>
+
+                        <p>Every 2 hours</p>
+
+                    </div>
+
+                    <button
+                        class="done-btn"
+                        onclick="addWater(this)">
+                        +1 Glass
+                    </button>
+
+                </div>
+
+
+                <div class="routine-item">
+
+                    <div class="routine-icon">
+                        🏃
+                    </div>
+
+                    <div class="routine-info">
+
+                        <h3>Walking</h3>
+
+                        <p>30 minutes</p>
+
+                    </div>
+
+                    <button
+                        class="done-btn"
+                        onclick="completeRoutine(this)">
+                        ✓ Done
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- MOOD -->
+
+            <div class="panel">
+
+                <h2>How are you feeling?</h2>
+
+                <p class="subtitle">
+                    Daily wellness check-in
+                </p>
+
+                <div class="mood-grid">
+
+                    <button onclick="selectMood('😊')">
+                        😊
+                    </button>
+
+                    <button onclick="selectMood('🙂')">
+                        🙂
+                    </button>
+
+                    <button onclick="selectMood('😐')">
+                        😐
+                    </button>
+
+                    <button onclick="selectMood('😔')">
+                        😔
+                    </button>
+
+                    <button onclick="selectMood('😫')">
+                        😫
+                    </button>
+
+                </div>
+
+                <p id="moodMessage">
+                    Select your mood
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- WEEKLY INSIGHTS -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <h2>Weekly Progress 📊</h2>
+
+                <button>
+                    View History
+                </button>
+
+            </div>
+
+            <div class="weekly-grid">
+
+                <div>
+                    <strong>92%</strong>
+                    <span>Medicine Adherence</span>
+                </div>
+
+                <div>
+                    <strong>75%</strong>
+                    <span>Hydration Goal</span>
+                </div>
+
+                <div>
+                    <strong>5/7</strong>
+                    <span>Exercise Days</span>
+                </div>
+
+                <div>
+                    <strong>7h 15m</strong>
+                    <span>Avg Sleep</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- AI ASSISTANT -->
+
+        <section class="assistant-panel panel" aria-labelledby="assistantTitle">
+
+            <div class="panel-header">
+                <div>
+                    <p class="assistant-kicker">LifeLink AI</p>
+                    <h2 id="assistantTitle">How can I help today?</h2>
+                </div>
+                <span class="assistant-badge">Demo assistant</span>
+            </div>
+
+            <div class="assistant-message" id="assistantMessage" role="status" aria-live="polite">
+                I can help you review your routine, hydration, sleep, or find care.
+            </div>
+
+            <form class="assistant-form" id="assistantForm">
+                <label class="sr-only" for="assistantInput">Ask LifeLink AI</label>
+                <input id="assistantInput" type="text" placeholder="Ask about your health routine..." autocomplete="off">
+                <button class="voice-button" id="voiceButton" type="button" aria-label="Ask by voice" aria-pressed="false">
+                    <span aria-hidden="true">&#127908;</span>
+                    <span class="sr-only">Use voice</span>
+                </button>
+                <button type="submit" aria-label="Send message">Send <span aria-hidden="true">&#8594;</span></button>
+            </form>
+
+            <p class="voice-status" id="voiceStatus" role="status" aria-live="polite">Type a question or use the microphone.</p>
+            <p class="assistant-disclaimer">For wellness guidance only. This assistant does not diagnose medical conditions.</p>
+
+        </section>
+
+
+        <!-- CARE FINDER -->
+
+        <section class="care-banner">
+
+            <div>
+
+                <h2>Need Medical Care? ❤️</h2>
+
+                <p>
+                    Find nearby healthcare specialists
+                    and hospitals.
+                </p>
+
+            </div>
+
+            <a href="care-finder.html"
+               class="primary-btn">
+                Find Care
+            </a>
+            <a href="tel:112" class="emergency-call-btn">
+                ☎ Emergency help
+            </a>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

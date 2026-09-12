@@ -1,0 +1,17 @@
+{
+  "name": "LifeLink Health Companion",
+  "short_name": "LifeLink",
+  "start_url": "dashboard.html",
+  "display": "standalone",
+  "background_color": "#f3f8f5",
+  "theme_color": "#115a54",
+  "description": "A student MVP health companion with medicine reminders.",
+  "icons": [
+    {
+      "src": "lifelink-icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
